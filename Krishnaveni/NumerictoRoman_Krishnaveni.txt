@@ -1,0 +1,80 @@
+using System;  
+using System.Text;    
+namespace RomanNumerals  
+{  
+  static class Roman  
+  {  
+        // roman letters 
+
+        static string[] romanThousand = { "MMM", "MM", "M" };  
+        static string[] romanHundred  = { "CM", "DCCC", "DCC", "DC", "D", "CD", "CCC", "CC", "C" };  
+        static string[] romanTens     = { "XC", "LXXX", "LXX", "LX", "L", "XL", "XXX", "XX", "X" };  
+        static string[] romanUnits    = { "IX", "VIII", "VII", "VI", "V", "IV", "III", "II", "I" }; 
+        
+        //Method to convert Numeric to Roman
+
+        public static string ConvertToRoman(int number)  
+        {  
+            int thousands, hundreds, tens, units;  
+
+            thousands = number/ 1000;  
+            number %= 1000;
+  
+            hundreds = number / 100;  
+            number %= 100;
+  
+            tens = number/ 10; 
+             
+            units = number % 10; 
+ 
+            var romanLetter = new StringBuilder();  
+            if (thousands > 0)
+            {
+               romanLetter.Append(romanThousand[3 - thousands]);  
+            }
+            if(hundreds > 0)
+            {
+               romanLetter.Append(romanHundred[9 - hundreds]);  
+            } 
+            if (tens > 0) 
+            {
+               romanLetter.Append(romanTens[9 - tens]);  
+            }
+       
+            if (units > 0)
+            { 
+               romanLetter.Append(romanUnits[9 - units]);  
+            }
+            return romanLetter.ToString();  
+        }  
+    }   
+  
+    class Program  
+    {  
+        static void Main()  
+        {  
+             
+            int[] numbers = { 1, 2016, -2, 587, 345, 6, 99, 0, 2840, 329, , 1066, 3002 ,3000 };   // input string 
+  
+            foreach (int number in numbers)  
+            {  
+                if (number <= 0)
+                {
+                     Console.WriteLine("The number is not a valid number"); //Error message when number is 0 or negative number 
+                }
+
+                else if(number > 3000)
+                {
+                    Console.WriteLine("The number is greater than the calculator can handle"); // Error message when number is greater than 3000 
+                }
+
+               else
+               {
+                    Console.WriteLine("{0} = {1}", number, Roman.ConvertToRoman(number)); // Conert numeric to Roman   
+               }
+            }  
+    
+        }  
+          
+    }  
+}  
